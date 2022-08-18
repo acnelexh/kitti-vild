@@ -132,3 +132,7 @@ Run python main.py to convert Almodel annotation to sample.json (lvis format)
 Run ./bin/pre_process_kitti to combine kitti dataset (images) with sample.json
 Run ./bin/main_kitti to start training
 Need to modified total_steps in configs/kitti.yaml for training. (It also has other parameters for training.)
+
+# Models location
+All the models and json file are saved under /data/vild. /data/vild/models contain models for vild. kitti_180000 is the kitti-model without training. 
+kitti_model contain the train kitti model. resnet50_vild is the original lvis train vild.
