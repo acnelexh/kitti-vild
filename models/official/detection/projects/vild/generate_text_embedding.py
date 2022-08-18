@@ -8,7 +8,7 @@ from easydict import EasyDict
 import clip
 import pandas as pd
 
-USE_GPU = False
+USE_GPU = True
 SAVE_PATH = Path("./tmp")
 
 #@title Define hyperparameters
@@ -162,11 +162,9 @@ def save_embedding(text_features, categories, dest_dir=Path("./tmp")):
     pdb.set_trace()
     df.to_csv(dest_dir/"label_map.csv", index=False)
 
-
-
 def main():
     #pdb.set_trace()
-    category_name_string = "superman;batman;spiderman"
+    category_name_string = "cyclist;pedestrian;car;tram;truck;van;misc"
     category_names = [x.strip() for x in category_name_string.split(';')]
     #category_names = ['background'] + category_names
     categories = [{'name': item, 'id': idx+1,} for idx, item in enumerate(category_names)]

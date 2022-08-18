@@ -32,7 +32,7 @@ from tensorflow.compat.v1 import estimator as tf_estimator
 from evaluation import coco_utils
 from evaluation import factory
 from hyperparameters import params_dict
-
+from .save_output import write_result
 
 def write_summary(logs, summary_writer, current_step):
   """Write out summaries of current training step for the checkpoint."""
@@ -189,8 +189,8 @@ class TpuExecutor(object):
       metrics = self._estimator.evaluate(
           input_fn, steps=eval_times, checkpoint_path=checkpoint_path)
     else:
-      if not self._evaluator:
-        self.prepare_evaluation()
+      #if not self._evaluator:
+      #  self.prepare_evaluation()
       if checkpoint_path:
         current_step = int(os.path.basename(checkpoint_path).split('-')[1])
       else:
@@ -209,7 +209,7 @@ class TpuExecutor(object):
           outputs = six.next(predictor)
           predictions = {}
           groundtruths = {}
-          pdb.set_trace()
+          #pdb.set_trace()
           for key, val in outputs.items():
             if key[0:5] == 'pred_':
               predictions[key[5::]] = val
@@ -217,10 +217,12 @@ class TpuExecutor(object):
               groundtruths[key[3::]] = val
             if key[0:5] == 'loss_':
               losses[key[5::]] += np.mean(val)
-          self._evaluator.update(
-              predictions,
-              groundtruths=(None if self._params.eval.use_json_file
-                            else groundtruths))
+          pdb.set_trace()
+          write_result(outputs)
+          #self._evaluator.update(
+          #    predictions,
+          #    groundtruths=(None if self._params.eval.use_json_file
+          #                  else groundtruths))
           counter = counter + 1
           tf.logging.info(
               f'Finish eval step {counter} out of total {eval_times} steps.')

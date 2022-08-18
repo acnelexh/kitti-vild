@@ -1,15 +1,15 @@
 #!/bin/bash
 
-DATA_DIR=./data/kitti/training/image_2
-DEST_DIR=./tmp
-VAL_JSON="./sample.json"
+DATA_DIR=/data/datasets/kitti/testing/image_2
+DEST_DIR=/data/datasets/kitti_tfrecords
+VAL_JSON="./kitti_instances_val.json"
 python3 preprocessing/create_kitti_tf_record.py \
   --image_dir="${DATA_DIR}" \
   --json_path="${VAL_JSON}" \
   --include_mask=True \
   --split='val' \
-  --num_parts=5 \
-  --max_num_processes=1 \
+  --num_parts=7518 \
+  --max_num_processes=10 \
   --dest_dir="${DEST_DIR}"
 
-# The script create 5 tf record with 1 process
+# The script create 100 tf record with 1 process

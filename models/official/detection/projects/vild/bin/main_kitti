@@ -1,21 +1,19 @@
 #!/bin/bash
 # try and train on 3 image for now
-
-BATCH_SIZE=1
+BATCH_SIZE=4
 RESNET_DEPTH=50
-WEIGHTS_DIR="./CLIP_embed"
-MODEL_DIR="./models/resnet50_vild"
-EVAL_FILE_PATTERN="./tmp/val*"
-TRAIN_FILE_PATTERN="./tmp/val*"
-VAL_JSON_FILE="./sample.json"
-TRAIN_JSON_FILE="./sample.json"
-RARE_MASK_PATH="${WEIGHTS_DIR}/lvis_rare_masks.npy"
-CLASSIFIER_WEIGHT_PATH="${WEIGHTS_DIR}/clip_synonym_prompt.npy"
-CONFIG_FILE="./configs/vild_resnet.yaml"
+WEIGHTS_DIR="./tmp"
+MODEL_DIR="./kitti_model"
+EVAL_FILE_PATTERN="/data/datasets/kitti_tfrecords/val*"
+TRAIN_FILE_PATTERN="/data/datasets/kitti_tfreco/train*"
+RARE_MASK_PATH="${WEIGHTS_DIR}/kitti_mask.npy"
+CLASSIFIER_WEIGHT_PATH="${WEIGHTS_DIR}/kitti_embed.npy"
+CONFIG_FILE="./configs/kitti.yaml"
+EVAL_SAMPLES=100
 python3 ../../main.py \
   --model="vild" \
   --model_dir="${MODEL_DIR}" \
-  --mode=train \
+  --mode=eval \
   --use_tpu=False \
   --config_file="${CONFIG_FILE}" \
-  --params_override="{ train: {train_file_pattern: ${TRAIN_FILE_PATTERN?}, train_batch_size: ${BATCH_SIZE?}}, resnet: {resnet_depth: ${RESNET_DEPTH?}}, predict: {predict_batch_size: ${BATCH_SIZE?}}, eval: {eval_batch_size: ${BATCH_SIZE?}, val_json_file: ${VAL_JSON_FILE?}, eval_file_pattern: ${EVAL_FILE_PATTERN?} }, frcnn_head: {classifier_weight_path: ${CLASSIFIER_WEIGHT_PATH?}}, postprocess: {rare_mask_path: ${RARE_MASK_PATH?}}, frcnn_class_loss: {'mask_rare': True, rare_mask_path: ${RARE_MASK_PATH?}}}"
+  --params_override="{ train: {train_file_pattern: ${TRAIN_FILE_PATTERN?}, train_batch_size: ${BATCH_SIZE?}}, resnet: {resnet_depth: ${RESNET_DEPTH?}}, predict: {predict_batch_size: ${BATCH_SIZE?}}, eval: {eval_samples: ${EVAL_SAMPLES?}, eval_batch_size: ${BATCH_SIZE?}, eval_file_pattern: ${EVAL_FILE_PATTERN?} }, frcnn_head: {classifier_weight_path: ${CLASSIFIER_WEIGHT_PATH?}}, postprocess: {rare_mask_path: ${RARE_MASK_PATH?}}, frcnn_class_loss: {'mask_rare': False, rare_mask_path: ${RARE_MASK_PATH?}}}"

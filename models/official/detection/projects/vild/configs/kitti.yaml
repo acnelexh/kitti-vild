@@ -127,8 +127,8 @@ train:
   iterations_per_loop: 100
   l2_weight_decay: 4.0e-05
   learning_rate:
-    init_learning_rate: 0.32
-    learning_rate_levels: [0.032, 0.0032]
+    init_learning_rate: 0.032
+    learning_rate_levels: [0.0032, 0.00032]
     learning_rate_steps: [162000, 171000, 175500]
     type: step
     warmup_learning_rate: 0.0032
@@ -144,8 +144,7 @@ train:
   regularization_variable_regex: .*(kernel|weight):0$
   space_to_depth_block_size: 1
   total_steps: 181000 #place holder
-  #train_batch_size: 256
-  train_batch_size: 2
+  train_batch_size: 256
   train_dataset_type: tfrecord
   transpose_input: true
 type: vild

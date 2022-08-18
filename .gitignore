@@ -24,3 +24,4 @@ resnet50_vild/
 fake_model8/
 *.pickle
 *.json
+result_kitti/

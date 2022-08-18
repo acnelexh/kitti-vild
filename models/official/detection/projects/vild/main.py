@@ -11,7 +11,7 @@ def count_images(data, cat_id):
 
 
 def main():
-    f = open('Amodal-Instance-Segmentation-through-KINS-Dataset/instances_val.json')
+    f = open('Amodal-Instance-Segmentation-through-KINS-Dataset/instances_train.json')
     data = json.load(f)
 
     #lvis_keys = ['info', 'categories', 'annotations', 'images', 'licences']
@@ -57,8 +57,8 @@ def main():
         categories['image_count'] = image_count
         categories['instance_count'] = instance_count
     
-    with open("sample.json", "w") as outfile:
-        json.dump(elvis_data, outfile)
+    with open("kitti_instances_train.json", "w") as outfile:
+        json.dump(elvis_data, outfile, indent=4)
 
 
 if __name__ == "__main__":

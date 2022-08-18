@@ -1,0 +1,18 @@
+#!/bin/bash
+EXPORT_DIR="./test"
+CHECKPOINT_PATH="./models/resnet50_vild/model.ckpt-180000"
+BATCH_SIZE=1
+INPUT_TYPE="image_bytes"
+INPUT_NAME="input"
+INPUT_IMAGE_SIZE="640,640"
+WEIGHTS_DIR="./CLIP_embed"
+CLASSIFIER_WEIGHT_PATH="${WEIGHTS_DIR}/clip_synonym_prompt.npy"
+PARAMS_OVERRIDE="{ resnet: {resnet_depth: 50, predict: {predict_batch_size: ${BATCH_SIZE?}}, eval: {eval_batch_size: ${BATCH_SIZE?}}, frcnn_head: {classifier_weight_path: ${CLASSIFIER_WEIGHT_PATH?}}, frcnn_class_loss: {mask_rare: False}}}" 
+python ../../export_saved_model.py \
+  --export_dir="${EXPORT_DIR?}" \
+  --checkpoint_path="${CHECKPOINT_PATH?}" \
+  --params_override= "${PARAMS_OVERRIDE?}"\
+  --batch_size="${BATCH_SIZE?}" \
+  --input_type="${INPUT_TYPE?}" \
+  --input_name="${INPUT_NAME?}" \
+  --input_image_size="${INPUT_IMAGE_SIZE?}" 

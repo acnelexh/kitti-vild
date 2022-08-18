@@ -196,7 +196,8 @@ def export(export_dir,
 
 def main(argv):
   del argv  # Unused.
-
+  print(FLAGS.model)
+  return
   export(export_dir=FLAGS.export_dir,
          checkpoint_path=FLAGS.checkpoint_path,
          model=FLAGS.model,
