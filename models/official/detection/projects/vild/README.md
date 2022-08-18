@@ -111,7 +111,24 @@ In this repo, we use [OpenAI's CLIP model](https://github.com/openai/CLIP) as th
 The code is built upon [Cloud TPU detection](https://github.com/tensorflow/tpu/tree/master/models/official/detection).
 
 
+# Model modification
+(1) Changing label
+Use generate_text_embedding.py to generate label embedding (order matters!!!)
+(2) Modifying graphs
+Use Op.ipynd to modified existing model graph for expecting number of classes.
+
+# Data-preprocessing
+For kitti, it needs 2 step for data conversion.
+(1) Run main.py under projects/vild to convert the Amodal annotation into kitti_instances_train.json
+(2) Uses preprocessing/creat_kitti_tf_record.py to convert kitti dataset along with kitti_instances_train.json into tf-record (run using ./bin/pre_process_kitti, )
+
+# Eval on kitti
+Run ./bin/main_kitti with mode==eval
+Under detection/executor/tpu_executor.py, def evaluate, I modified it such that it saves model prediction as txt file.
+Need to specified where to save output.
+
 # Start Training
 Run python main.py to convert Almodel annotation to sample.json (lvis format)
 Run ./bin/pre_process_kitti to combine kitti dataset (images) with sample.json
 Run ./bin/main_kitti to start training
+Need to modified total_steps in configs/kitti.yaml for training. (It also has other parameters for training.)

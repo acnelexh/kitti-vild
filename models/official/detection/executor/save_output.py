@@ -1,6 +1,7 @@
 from pathlib import Path
 import pdb
 
+#hard code
 SAVE_PATH = Path("./")
 
 def write_result(outputs, threshold = 0.5):

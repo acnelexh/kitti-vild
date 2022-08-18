@@ -5,9 +5,9 @@ RESNET_DEPTH=50
 WEIGHTS_DIR="./tmp"
 MODEL_DIR="./kitti_model"
 EVAL_FILE_PATTERN="/data/datasets/kitti_tfrecords/val*"
-TRAIN_FILE_PATTERN="/data/datasets/kitti_tfreco/train*"
-RARE_MASK_PATH="${WEIGHTS_DIR}/kitti_mask.npy"
-CLASSIFIER_WEIGHT_PATH="${WEIGHTS_DIR}/kitti_embed.npy"
+TRAIN_FILE_PATTERN="/data/datasets/kitti_tfrecods/train*"
+RARE_MASK_PATH="${WEIGHTS_DIR}/kitti_mask.npy" #mask for rate category
+CLASSIFIER_WEIGHT_PATH="${WEIGHTS_DIR}/kitti_embed.npy" #weight for label embedding
 CONFIG_FILE="./configs/kitti.yaml"
 EVAL_SAMPLES=100
 python3 ../../main.py \

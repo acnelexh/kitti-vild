@@ -1,15 +1,17 @@
 #!/bin/bash
 
-DATA_DIR=/data/datasets/kitti/testing/image_2
-DEST_DIR=/data/datasets/kitti_tfrecords
-VAL_JSON="./kitti_instances_val.json"
+DATA_DIR=/data/datasets/kitti/testing/image_2 #which directory of image data
+DEST_DIR=/data/datasets/kitti_tfrecords #where to save tfrecord
+VAL_JSON="./kitti_instances_val.json" #converted json file from main.py
+SPLIT="val" #which split? val or train
 python3 preprocessing/create_kitti_tf_record.py \
   --image_dir="${DATA_DIR}" \
   --json_path="${VAL_JSON}" \
   --include_mask=True \
-  --split='val' \
+  --split="${SPLIT}" \
   --num_parts=7518 \
   --max_num_processes=10 \
   --dest_dir="${DEST_DIR}"
-
+# max_num_processes: # of processes to run
+# num_parts: number of example to create
 # The script create 100 tf record with 1 process
